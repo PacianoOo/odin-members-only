@@ -29,6 +29,7 @@ module ApplicationHelper
   end
 
   def button_class(options={})
+
     variant = options[:variant]
     theme = options[:theme]
 
