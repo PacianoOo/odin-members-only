@@ -1,7 +1,7 @@
 <%= post.body %>
 <% if user_signed_in? %>
-    <%= post.user.name %>
+    <p><%= post.user.name %> </p>
 <% else %>
-    <p> Log-in to see authors </p>
+    <p>-</p>
 <% end %>
 

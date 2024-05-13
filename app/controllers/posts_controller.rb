@@ -2,20 +2,22 @@ class PostsController < ApplicationController
   def index
     @post = Post.new
     @posts = Post.all.order(created_at: :asc)
-  end
+    end
 
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    
     respond_to do |format|
       if @post.save
-        format.turbo_stream 
+        format.html { redirect_to root_path }
+        format.turbo_stream { render turbo_stream: turbo_stream.prepend("posts", partial: "views/posts/post", locals: { post: @post }) }
       else
-        format.html { render :index, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity }
       end
     end
-
   end
+    
 
   def destroy
   end
