@@ -3,11 +3,13 @@
     <% if user_signed_in? %>
       <%= render "form" %>
     <% end %>
-    <%= turbo_frame_tag "posts" do %>
-      <div id= "posts">
-        <%= render @posts %>
-      </div>
-    <% end %>
+    <div class="m-top-6">
+      <%= turbo_frame_tag "posts" do %>
+        <div id= "posts">
+          <%= render @posts %>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div>
     <% if user_signed_in? %>
