@@ -20,6 +20,16 @@ class PostsController < ApplicationController
     
 
   def destroy
+    @post = current_user.posts.find(params[:id])
+    @post.destroy
+    respond_to do |format|
+      if @post.destroy
+        format.html { redirect_to root_path }
+        format.turbo_stream { render turbo_stream: turbo_stream.remove("posts", partial: "views/posts/post", locals: { post: @post }) }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit

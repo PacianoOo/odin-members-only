@@ -1,26 +1,29 @@
-
-  <div class=" flex flex-col content-center ">
-    <% if user_signed_in? %>
-      <%= render "form" %>
+<div class=" flex flex-col content-center ">
+  <% if user_signed_in? %>
+    <%= render "form" %>
+  <% end %>
+  <div class="m-top-6">
+    <%= turbo_frame_tag "posts" do %>
+      <div id= "posts">
+        <%= render @posts %>
+      </div>
     <% end %>
-    <div class="m-top-6">
-      <%= turbo_frame_tag "posts" do %>
-        <div id= "posts">
-          <%= render @posts %>
-        </div>
-      <% end %>
+  </div>
+</div>
+<div class="flex flex-col">
+  <% if user_signed_in? %>
+    <p>
+      Signed in as: <%= current_user.name %>
+    </p>
+    <div class="pt-4 pb-4">
+    <%= button_to "Sign Out", destroy_user_session_path, 
+    method: :delete, class: button_class(theme: "primary"), 
+    data: {turbo: false} %>
     </div>
-  </div>
-  <div>
-    <% if user_signed_in? %>
-      <p>
-        Signed in as: <%= current_user.name %>
-      </p>
-      <%= button_to "Sign Out", destroy_user_session_path, 
-      method: :delete, class: button_class(theme: "primary"), 
-      data: {turbo: false} %>
-    <% else %>
-      <%= link_to "Sign in", new_user_session_path, 
-      class: button_class(theme: "primary") %>
-    <% end %>
-  </div>
+  <% else %>
+    <div class="pt-4">
+    <%= link_to "Sign in", new_user_session_path, 
+    class: button_class(theme: "primary") %>
+    </div>
+  <% end %>
+</div>
