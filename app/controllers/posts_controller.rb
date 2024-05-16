@@ -1,7 +1,8 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:edit, :update]
   def index
     @post = Post.new
-    @posts = Post.all.order(created_at: :asc)
+    @posts = Post.all.order(created_at: :desc)
     end
 
   def create
@@ -35,10 +36,23 @@ class PostsController < ApplicationController
   def edit
   end
 
+  def update
+    respond_to do |format|
+      if @post.update(post_params)
+        format.html { redirect_to root_path }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("posts", partial: "views/posts/post", locals: { post: @post }) }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
   private
 
   def post_params
     params.require(:post).permit(:body)
   end
 
+  def set_post
+    @post = current_user.posts.find(params[:id])
+  end
 end
