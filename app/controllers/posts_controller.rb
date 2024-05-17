@@ -14,7 +14,10 @@ class PostsController < ApplicationController
         format.html { redirect_to root_path }
         format.turbo_stream { render turbo_stream: turbo_stream.prepend("posts", partial: "views/posts/post", locals: { post: @post }) }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do 
+          flash[:post_errors] = @post.errors.full_messages
+          redirect_to root_path
+        end
       end
     end
   end

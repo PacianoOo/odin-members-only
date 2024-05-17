@@ -7,4 +7,5 @@ has_person_name
          :recoverable, :rememberable, :validatable
 
   has_many :posts
+  validates_uniqueness_of :username
 end
