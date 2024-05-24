@@ -72,4 +72,25 @@ module ApplicationHelper
       "px-5 py-2 text-base #{base} #{theme}"
     end
   end
+
+  def profile_image(user, options={})
+    size = case options[:size]
+    when "large"
+      "w-20 h-20"
+    when "medium"
+      "w-14 h-14"
+    else
+      "w-10 h-10"
+    end
+
+    classes = "#{size} flex-skrink-0 rounded-full
+    border-2 border-white"
+
+    if user.profile_image.attached?
+      image_tag user.profile_image, class: classes
+    else
+      image_tag "https://cdn.vectorstock.com/i/1000v/33/51/person-gray-photo-placeholder-little-boy-vector-22863351.jpg",
+      class: classes
+    end
+  end
 end

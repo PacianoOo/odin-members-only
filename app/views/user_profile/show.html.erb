@@ -1,1 +1,16 @@
-<h1><%= @profile.name %>`s profile</h1>
+<div class="flex items-center justify-between">
+    <div class="flex-1 items-center">
+        <%= profile_image(@profile, size: "large") %> 
+    </div>
+    <div class="flex-1">
+        <h1><%= @profile.name %>`s profile</h1>
+    </div>
+    <div>
+        <%= link_to "Edit Profile", edit_user_registration_path,
+        class: "inline-flex justify-center items-center px-5 py-2 rounded-md border ring-4
+        focus:ring-sky-50 ring-transparent hover:ring-sky-50 hover:border-gray-300" if current_user %>
+    </div>
+</div>
+<div>
+    <%= render collection: @profile.posts, partial: "posts/post" %>
+</div>
