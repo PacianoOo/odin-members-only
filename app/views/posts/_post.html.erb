@@ -4,7 +4,10 @@
 <% end %>
 <% if user_signed_in? %>
     <div class="flex flex-row justify-between pt-10">
-        <p>Authored by: <%= post.user.name %> </p>
+        <div class="space-y-3">
+            <p><%= profile_image(post.user)%></p>
+            <p><%= post.user.name %></p>
+        </div>
             <% if user_signed_in? && current_user == post.user %>
                 <div class="w-5 h-5">
                 <%= button_to edit_post_path(post), method: :get,
