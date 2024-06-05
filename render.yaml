@@ -1,6 +1,6 @@
 databases:
-  - name: mini-muni
-    databaseName: mini-muni
+  - name: mysite
+    databaseName: mysite
     user: mysite
     plan: free
 
